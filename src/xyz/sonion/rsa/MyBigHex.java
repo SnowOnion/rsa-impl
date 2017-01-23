@@ -366,7 +366,7 @@ public class MyBigHex implements MyBigInteger {
 			return new MyBigHex(this);
 		} else if(this.compareTo(m) == 0) {
 			return new MyBigHex(0);
-		} else if(thisLen == mLen) {
+		} else if(thisLen <= mLen + 1) {
 			MyBigInteger that = new MyBigHex(this);
 			while(that.compareTo(m) >= 0) {
 				that = that.minus(m); // many (<=BASE) steps, objects...

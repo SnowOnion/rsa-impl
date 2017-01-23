@@ -186,6 +186,14 @@ public class MyBigHexTest {
 	}
 
 	@Test
+	public void module6min() throws Exception {
+		x = new MyBigHex("330");
+		y = new MyBigHex("4D");
+		z = (MyBigHex) x.module(y);
+		assertEquals(new MyBigHex(46), z);
+	}
+
+	@Test
 	public void module7() throws Exception {
 		x = new MyBigHex(2015312962);
 		y = new MyBigHex(60);
@@ -212,6 +220,15 @@ public class MyBigHexTest {
 		z = (MyBigHex) x.module(y);
 		System.out.println(z.toLong());
 		assertEquals(new MyBigHex(509604), z);
+	}
+
+	@org.junit.Test
+	public void module10() throws Exception {
+		x = (MyBigHex) new MyBigHex().fromString("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"); //
+		y = (MyBigHex) new MyBigHex().fromString("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC1"); //
+		z = (MyBigHex) x.module(y);
+		System.out.println(z);
+		assertEquals(new MyBigHex("ebffffffffff"), z);
 	}
 
 	@Test
