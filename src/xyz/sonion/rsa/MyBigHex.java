@@ -329,6 +329,7 @@ public class MyBigHex implements MyBigInteger {
 
 	/***
 	 * Test only
+	 *
 	 * @param baseOfPower
 	 * @param power
 	 * @param n
@@ -348,7 +349,7 @@ public class MyBigHex implements MyBigInteger {
 			if(power.isEven()) {
 				return powerHalve.multiply(powerHalve).module(n);
 			} else {
-				return powerHalve.multiply(powerHalve).multiply(half).module(n);
+				return powerHalve.multiply(powerHalve).multiply(baseOfPower).module(n);
 			}
 		}
 	}
@@ -360,8 +361,11 @@ public class MyBigHex implements MyBigInteger {
 		} else if(this.compareTo((MyBigHex) m) == 0) {
 			return new MyBigHex(0);
 		} else {
-			// not efficient= =?
-			MyBigInteger that = this.cut(0, m.getDigits());
+			// not efficient= =? TODO
+
+			MyBigInteger that = this.getDigits() > m.getDigits() ?
+					this.cut(0, m.getDigits() + 1) :
+					this.cut(0, m.getDigits());
 			while(that.compareTo(m) >= 0) {
 				that = that.minus(m); // many (<=BASE) objects...
 			}

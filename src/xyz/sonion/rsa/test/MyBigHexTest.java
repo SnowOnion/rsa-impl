@@ -178,6 +178,14 @@ public class MyBigHexTest {
 	}
 
 	@Test
+	public void module6() throws Exception {
+		x = new MyBigHex("800");
+		y = new MyBigHex("4D");
+		z = (MyBigHex) x.module(y);
+		assertEquals(new MyBigHex(46), z);
+	}
+
+	@Test
 	public void equals() throws Exception {
 
 	}
@@ -411,11 +419,11 @@ public class MyBigHexTest {
 
 	@Test
 	public void powerModInner1() {
-		x = (MyBigHex) new MyBigHex(2);//.fromString("2");
-		y = (MyBigHex) new MyBigHex(22);//.fromString("22");
-		z = (MyBigHex) new MyBigHex(77);//.fromString("77");
+		x = new MyBigHex(2);//.fromString("2");
+		y = new MyBigHex(22);//.fromString("22");
+		z = new MyBigHex(77);//.fromString("77");
 		w = (MyBigHex) MyBigHex.powerModInner(x, y, z);
-		assertEquals(new MyBigHex(37),w);
+		assertEquals(new MyBigHex(37),w); // "25"
 	}
 
 }
