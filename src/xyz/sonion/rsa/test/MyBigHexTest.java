@@ -16,10 +16,10 @@ import static org.junit.Assert.assertEquals;
 public class MyBigHexTest {
 
 
-
 	MyBigHex x;
 	MyBigHex y;
 	MyBigHex z;
+	MyBigHex w;
 //
 //	@Before
 //	public void setup(){
@@ -378,6 +378,44 @@ public class MyBigHexTest {
 		for(Integer i : ali) {
 			System.out.println(i);
 		}
+	}
+
+
+	@Test
+	public void halve1() {
+		x = (MyBigHex) new MyBigHex().fromString("2");
+		y= (MyBigHex) x.halve();
+		assertEquals(new MyBigHex(1),y);
+	}
+
+	@Test
+	public void halve2() {
+		x = (MyBigHex) new MyBigHex().fromString("33");
+		y= (MyBigHex) x.halve();
+		assertEquals(new MyBigHex(25),y);
+	}
+
+	@Test
+	public void halve3() {
+		x = (MyBigHex) new MyBigHex().fromString("0");
+		y= (MyBigHex) x.halve();
+		assertEquals(new MyBigHex(0),y);
+	}
+
+	@Test
+	public void halve4() {
+		x = (MyBigHex) new MyBigHex().fromString("10");
+		y= (MyBigHex) x.halve();
+		assertEquals(new MyBigHex(8),y);
+	}
+
+	@Test
+	public void powerModInner1() {
+		x = (MyBigHex) new MyBigHex(2);//.fromString("2");
+		y = (MyBigHex) new MyBigHex(22);//.fromString("22");
+		z = (MyBigHex) new MyBigHex(77);//.fromString("77");
+		w = (MyBigHex) MyBigHex.powerModInner(x, y, z);
+		assertEquals(new MyBigHex(37),w);
 	}
 
 }

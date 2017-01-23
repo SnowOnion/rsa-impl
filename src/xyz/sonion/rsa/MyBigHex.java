@@ -300,18 +300,57 @@ public class MyBigHex implements MyBigInteger {
 		return null; // TODO
 	}
 
+	/**
+	 * this ^ power mod (p*q)
+	 *
+	 * @param power
+	 * @param p
+	 * @param q
+	 * @return
+	 */
 	@Override
 	public MyBigInteger powerMod(MyBigInteger power, MyBigInteger p, MyBigInteger q) {
-		MyBigInteger one = new MyBigHex().fromInteger(1);
-		MyBigInteger r = p.minus(one).multiply(q.minus(one)); // Euler function of prime*prime
+		MyBigHex one = new MyBigHex(1);
 
+		MyBigInteger r = p.minus(one).multiply(q.minus(one)); // Euler function of prime*prime
+		MyBigInteger n = p.multiply(q);
+
+		// power is very large
 		if(power.compareTo(r) > 0) {
 			// Euler's Theorem
-
+			return powerModInner(this, power.module(r), n);
 		}
+		// power is small。// goto fastPower.
+		else {
+			return powerModInner(this, power, n);
+		}
+	}
 
-		return null; // TODO
 
+	/***
+	 * Test only
+	 * @param baseOfPower
+	 * @param power
+	 * @param n
+	 * @return
+	 */
+	public static MyBigInteger powerModInner(MyBigInteger baseOfPower, MyBigInteger power, MyBigInteger n) {
+		final MyBigHex one = new MyBigHex(1);
+		final MyBigHex zero = new MyBigHex(0);
+
+		if(power.compareTo(new MyBigHex(one)) == 0) {
+			return baseOfPower.module(n);
+		} else if(power.compareTo(new MyBigHex(zero)) == 0) {
+			return new MyBigHex(1);
+		} else {
+			MyBigInteger half = power.halve();
+			MyBigInteger powerHalve = powerModInner(baseOfPower, half, n);
+			if(power.isEven()) {
+				return powerHalve.multiply(powerHalve).module(n);
+			} else {
+				return powerHalve.multiply(powerHalve).multiply(half).module(n);
+			}
+		}
 	}
 
 	@Override
@@ -329,6 +368,10 @@ public class MyBigHex implements MyBigInteger {
 			return that;
 		}
 	}
+
+//	public MyBigInteger module(Integer m) {
+//
+//	}
 
 	@Override
 	public int getBase() {
@@ -376,5 +419,34 @@ public class MyBigHex implements MyBigInteger {
 			}
 			return 0;
 		}
+	}
+
+
+	/**
+	 * Hardly to be found to go back to MyBigInteger 23333
+	 *
+	 * @return
+	 */
+	@Override
+	public boolean isEven() {
+		return hexDigits.get(0) % 2 == 0;
+	}
+
+	/**
+	 * Then floor.
+	 *
+	 * @return
+	 */
+	@Override
+	public MyBigInteger halve() {
+		MyBigHex that = new MyBigHex();
+		int r = 0;
+		for(int i = this.getDigits() - 1; i >= 0; i--) {
+			int c = (this.digitAt(i) + r * getBase()) / 2;
+			r = (this.digitAt(i) + r * getBase()) % 2;
+			that.hexDigits.add(0, c);
+		}
+		that.normalize();
+		return that;
 	}
 }
