@@ -293,6 +293,14 @@ public class MyBigHexTest {
 	}
 
 	@org.junit.Test
+	public void multiply41() throws Exception {
+		x = (MyBigHex) new MyBigHex().fromString("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"); //
+		y = (MyBigHex) new MyBigHex().fromString("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"); //
+		z = (MyBigHex) x.multiply(y);
+		assertEquals(new MyBigHex("ccccccccccccccccccccccccccccccccccccccccccccccccccccccb3333333333333333333333333333333333333333333333333333334"), z);
+	}
+
+	@org.junit.Test
 	public void multiply11() throws Exception {
 		x = (MyBigHex) new MyBigHex().fromString("FF9AC"); //
 		y = (MyBigHex) new MyBigHex().fromString("CCA0"); //

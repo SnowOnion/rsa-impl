@@ -186,7 +186,7 @@ public class MyBigHex implements MyBigInteger {
 
 	@Override
 	public MyBigInteger minus(MyBigInteger that) {
-		int cmp = ((MyBigHex) this).compareTo((MyBigHex) that);
+		int cmp = this.compareTo(that);
 		if(cmp < 0) {
 			return null; // 不兹瓷负数……
 		} else if(cmp == 0) {
@@ -235,21 +235,20 @@ public class MyBigHex implements MyBigInteger {
 	 */
 	@Override
 	public MyBigInteger multiply(MyBigInteger that) {
-		if(this.getDigits() == 1) {
-			return that.multiply(this.digitAt(0));
-		} else if(that.getDigits() == 1) {
-			return this.multiply(that.digitAt(0));
+		MyBigInteger shorter, longer;
+		if(this.getDigits() < that.getDigits()) {
+			shorter = this;
+			longer = that;
 		} else {
-			MyBigInteger shorter, longer;
-			if(this.getDigits() < that.getDigits()) {
-				shorter = this;
-				longer = that;
-			} else {
-				shorter = that;
-				longer = this;
-			}
-			int lenShort = shorter.getDigits();
-			int lenLong = longer.getDigits();
+			shorter = that;
+			longer = this;
+		}
+		int lenShort = shorter.getDigits();
+		int lenLong = longer.getDigits();
+		if(lenShort == 1) {
+			return longer.multiply(shorter.digitAt(0));
+		} else {
+
 			int splitPos = lenLong / 2;
 
 			if(splitPos >= lenShort) {
@@ -278,20 +277,24 @@ public class MyBigHex implements MyBigInteger {
 	 * @return
 	 */
 	public MyBigInteger multiply(int thatDigit) {
-		int len = this.getDigits();
-		MyBigHex result = new MyBigHex();
-		int inc = 0;
-		for(int i = 0; i < len; i++) {
-			int c = this.digitAt(i) * thatDigit + inc;
-			int r = c % getBase();
-			inc = c / getBase();
-			result.addDigit(r);
+		if(thatDigit == 0) {
+			return new MyBigHex(0);
+		} else {
+			int len = this.getDigits();
+			MyBigHex result = new MyBigHex();
+			int inc = 0;
+			for(int i = 0; i < len; i++) {
+				int c = this.digitAt(i) * thatDigit + inc;
+				int r = c % getBase();
+				inc = c / getBase();
+				result.addDigit(r);
+			}
+			if(inc > 0) {
+				result.addDigit(inc);
+			}
+			result.normalize();
+			return result;
 		}
-		if(inc > 0) {
-			result.addDigit(inc);
-		}
-		result.normalize();
-		return result;
 	}
 
 	@Override
@@ -369,13 +372,17 @@ public class MyBigHex implements MyBigInteger {
 			}
 			return that;
 		} else { // this has more digits than m
-			MyBigInteger r = new MyBigHex(0);
-			for(int i = thisLen - 1; i >= 0; i--) { // too redundant... TODO
-				r=r.leftShift(1).add(new MyBigHex(this.digitAt(i))).module(m);
-			}
-			return r;
+//			MyBigInteger r = new MyBigHex(0);
+//			for(int i = thisLen - 1; i >= 0; i--) { // too redundant... TODO
+//				r = r.leftShift(1).add(new MyBigHex(this.digitAt(i))).module(m);
+//			}
+//			return r;
+			int splitPos = thisLen / 2;
+			MyBigInteger lowMod= this.cut(0,splitPos).module(m);
+			MyBigInteger highMod= this.cut(splitPos,thisLen).module(m);
+			MyBigInteger expMod = new MyBigHex(1).leftShift(splitPos).module(m);
+			return lowMod.add(highMod.multiply(expMod)).module(m);
 		}
-
 	}
 
 //	public MyBigInteger module(Integer m) {
