@@ -173,8 +173,8 @@ public class MyBigHexTest {
 		y = new MyBigHex("F");
 		z = (MyBigHex) x.module(y);
 		assertEquals(new MyBigHex(0), z);
-		assertEquals("FF96", x.toString());
-		assertEquals("EE85", y.toString());
+		assertEquals("FFFF", x.toString());
+		assertEquals("F", y.toString());
 	}
 
 	@Test

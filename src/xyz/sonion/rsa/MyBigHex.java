@@ -323,7 +323,7 @@ public class MyBigHex implements MyBigInteger {
 		} else {
 			// not efficient= =?
 			MyBigInteger that = this.cut(0, m.getDigits());
-			while(that.compareTo(m) > 0) {
+			while(that.compareTo(m) >= 0) {
 				that = that.minus(m); // many (<=BASE) objects...
 			}
 			return that;
