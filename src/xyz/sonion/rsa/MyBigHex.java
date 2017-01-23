@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 大的十六进制非负数
  */
-public class MyBigHex implements MyBigInteger, Comparable<MyBigHex> {
+public class MyBigHex implements MyBigInteger {
 	/**
 	 * hexDigits.get(0)为最低位
 	 */
@@ -302,8 +302,32 @@ public class MyBigHex implements MyBigInteger, Comparable<MyBigHex> {
 
 	@Override
 	public MyBigInteger powerMod(MyBigInteger power, MyBigInteger p, MyBigInteger q) {
-//		MyBigInteger r =
-		return null;
+		MyBigInteger one = new MyBigHex().fromInteger(1);
+		MyBigInteger r = p.minus(one).multiply(q.minus(one)); // Euler function of prime*prime
+
+		if(power.compareTo(r) > 0) {
+			// Euler's Theorem
+
+		}
+
+		return null; // TODO
+
+	}
+
+	@Override
+	public MyBigInteger module(MyBigInteger m) {
+		if(this.compareTo((MyBigHex) m) < 0) {
+			return new MyBigHex(this);
+		} else if(this.compareTo((MyBigHex) m) == 0) {
+			return new MyBigHex(0);
+		} else {
+			// not efficient= =?
+			MyBigInteger that = this.cut(0, m.getDigits());
+			while(that.compareTo(m) > 0) {
+				that = that.minus(m); // many (<=BASE) objects...
+			}
+			return that;
+		}
 	}
 
 	@Override
@@ -334,7 +358,7 @@ public class MyBigHex implements MyBigInteger, Comparable<MyBigHex> {
 
 
 	@Override
-	public int compareTo(MyBigHex that) {
+	public int compareTo(MyBigInteger that) {
 		// awesome. total order.
 		if(this.getDigits() > that.getDigits()) {
 			return 1;

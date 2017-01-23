@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class MyBigHexTest {
 
 
+
 	MyBigHex x;
 	MyBigHex y;
 	MyBigHex z;
@@ -122,6 +123,56 @@ public class MyBigHexTest {
 		y = new MyBigHex("EE85");
 		z = (MyBigHex) x.minus(y);
 		assertEquals("1111", z.toString());
+		assertEquals("FF96", x.toString());
+		assertEquals("EE85", y.toString());
+	}
+
+	@Test
+	public void module1() throws Exception {
+		x = new MyBigHex("FF96");
+		y = new MyBigHex("EE85");
+		z = (MyBigHex) x.module(y);
+		assertEquals("1111", z.toString());
+		assertEquals("FF96", x.toString());
+		assertEquals("EE85", y.toString());
+	}
+
+	@Test
+	public void module2() throws Exception {
+		x = new MyBigHex("FF96");
+		y = new MyBigHex("100");
+		z = (MyBigHex) x.module(y);
+		assertEquals("96", z.toString());
+		assertEquals("FF96", x.toString());
+		assertEquals("EE85", y.toString());
+	}
+
+	@Test
+	public void module3() throws Exception {
+		x = new MyBigHex("FF96");
+		y = new MyBigHex("1");
+		z = (MyBigHex) x.module(y);
+		assertEquals("0", z.toString());
+		assertEquals("FF96", x.toString());
+		assertEquals("EE85", y.toString());
+	}
+
+	@Test
+	public void module4() throws Exception {
+		x = new MyBigHex("FF96");
+		y = new MyBigHex("EE85");
+		z = (MyBigHex) y.module(x);
+		assertEquals(y, z);
+		assertEquals("FF96", x.toString());
+		assertEquals("EE85", y.toString());
+	}
+
+	@Test
+	public void module5() throws Exception {
+		x = new MyBigHex("FFFF");
+		y = new MyBigHex("F");
+		z = (MyBigHex) x.module(y);
+		assertEquals(new MyBigHex(0), z);
 		assertEquals("FF96", x.toString());
 		assertEquals("EE85", y.toString());
 	}

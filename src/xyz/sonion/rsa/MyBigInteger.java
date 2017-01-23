@@ -1,6 +1,9 @@
 package xyz.sonion.rsa;
 
-public interface MyBigInteger {
+/**
+ * Non negative.
+ */
+public interface MyBigInteger extends Comparable<MyBigInteger> {
 
 	public MyBigInteger fromInteger(Integer i);
 
@@ -41,6 +44,9 @@ public interface MyBigInteger {
 	public MyBigInteger powerMod(MyBigInteger power, MyBigInteger module);
 
 	MyBigInteger powerMod(MyBigInteger power, MyBigInteger p, MyBigInteger q);
+
+
+	MyBigInteger module(MyBigInteger m);
 
 	public int getBase();
 
