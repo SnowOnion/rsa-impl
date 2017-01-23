@@ -1,5 +1,6 @@
 package xyz.sonion.rsa;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 //258
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * 大的十六进制非负数
  */
-public class MyBigHex implements MyBigInteger {
+public class MyBigHex implements MyBigInteger, Comparable<MyBigHex> {
 	/**
 	 * hexDigits.get(0)为最低位
 	 */
@@ -185,8 +186,13 @@ public class MyBigHex implements MyBigInteger {
 	}
 
 	@Override
+	public BigInteger minus(MyBigInteger that) {
+return null;
+	}
+
+	@Override
 	public boolean equals(Object that) {
-		// TODO not correct! Same-base integer only.
+		// TODO not generally correct! Same-base integer only.
 		if(that instanceof MyBigHex) {
 			if(this.toString().equals(that.toString())) {
 				return true;
@@ -264,7 +270,14 @@ public class MyBigHex implements MyBigInteger {
 
 	@Override
 	public MyBigInteger powerMod(MyBigInteger power, MyBigInteger module) {
+
 		return null; // TODO
+	}
+
+	@Override
+	public MyBigInteger powerMod(MyBigInteger power, MyBigInteger p, MyBigInteger q) {
+//		MyBigInteger r =
+		return null;
 	}
 
 	@Override
@@ -278,7 +291,7 @@ public class MyBigHex implements MyBigInteger {
 	}
 
 	/***
-	 * Debug/Test Only // TODO
+	 * Debug/Test Only
 	 */
 	public void setDigitAt(int index, Integer val) {
 		hexDigits.set(index, val);
@@ -294,4 +307,24 @@ public class MyBigHex implements MyBigInteger {
 	}
 
 
+	@Override
+	public int compareTo(MyBigHex that) {
+		// awesome. total order.
+		if(this.getDigits() > that.getDigits()) {
+			return 1;
+		} else if(this.getDigits() < that.getDigits()) {
+			return -1;
+		} else {
+			for(int i = this.getDigits() - 1; i >= 0; i--) {
+				if(this.digitAt(i) > that.digitAt(i)) {
+					return 1;
+				} else if(this.digitAt(i) < that.digitAt(i)) {
+					return -1;
+				} else {
+					continue;
+				}
+			}
+			return 0;
+		}
+	}
 }

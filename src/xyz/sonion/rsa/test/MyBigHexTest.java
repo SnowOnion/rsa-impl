@@ -237,6 +237,49 @@ public class MyBigHexTest {
 	}
 
 	@Test
+	public void compareTo11() throws Exception {
+		x = (MyBigHex) new MyBigHex().fromString("FF9AC"); //
+		y = (MyBigHex) new MyBigHex().fromString("FF9AB"); //
+		assertEquals(1, x.compareTo(y));
+	}
+
+	@Test
+	public void compareTo12() throws Exception {
+		x = (MyBigHex) new MyBigHex().fromString("FF9AC"); //
+		y = (MyBigHex) new MyBigHex().fromString("FF9AB"); //
+		assertEquals(-1, y.compareTo(x));
+	}
+
+	@Test
+	public void compareTo13() throws Exception {
+		x = (MyBigHex) new MyBigHex().fromString("FF9AC"); //
+		y = (MyBigHex) new MyBigHex().fromString("0FF9AB"); //
+		assertEquals(-1, y.compareTo(x));
+	}
+
+	@Test
+	public void compareTo21() throws Exception {
+		x = (MyBigHex) new MyBigHex().fromString("EF9AC"); //
+		y = (MyBigHex) new MyBigHex().fromString("FF9A"); //
+		assertEquals(1, x.compareTo(y));
+	}
+
+	@Test
+	public void compareTo22() throws Exception {
+		x = (MyBigHex) new MyBigHex().fromString("EF9AC"); //
+		y = (MyBigHex) new MyBigHex().fromString("FF9A"); //
+		assertEquals(-1, y.compareTo(x));
+	}
+
+	@Test
+	public void compareTo31() throws Exception {
+		x = (MyBigHex) new MyBigHex().fromString("FF9AC"); //
+		y = (MyBigHex) new MyBigHex().fromString("FF9AC"); //
+		assertEquals(0, x.compareTo(y));
+	}
+
+
+	@Test
 	public void test() throws Exception {
 		ArrayList<Integer> ali = new ArrayList<Integer>();
 		ali.add(3);

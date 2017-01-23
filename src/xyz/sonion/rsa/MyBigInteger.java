@@ -1,5 +1,7 @@
 package xyz.sonion.rsa;
 
+import java.math.BigInteger;
+
 public interface MyBigInteger {
 
 	public MyBigInteger fromInteger(Integer i);
@@ -20,13 +22,15 @@ public interface MyBigInteger {
 
 	public MyBigInteger leftShift(int digits);
 
-	public MyBigInteger cut(int leastDigit,int mostDigit);
+	public MyBigInteger cut(int leastDigit, int mostDigit);
 
 	/**
 	 * @param that
 	 * @return this + that
 	 */
 	public MyBigInteger add(MyBigInteger that);
+
+	public BigInteger minus(MyBigInteger that);
 
 	/**
 	 * @param that
@@ -37,6 +41,8 @@ public interface MyBigInteger {
 	public MyBigInteger multiply(int i);
 
 	public MyBigInteger powerMod(MyBigInteger power, MyBigInteger module);
+
+	MyBigInteger powerMod(MyBigInteger power, MyBigInteger p, MyBigInteger q);
 
 	public int getBase();
 
