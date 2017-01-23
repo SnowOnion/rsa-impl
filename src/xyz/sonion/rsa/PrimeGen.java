@@ -1,9 +1,12 @@
-package xyz.sonion.rsa;
-
-/**
- * Created by SnowOnion
- * on 2017-01-21 21:52.
- * To change this template, use Preferences | Editor | File and Code Templates | Includes | File Header.
- */
-public class PrimeGen {
-}
+//package xyz.sonion.rsa;
+//
+//import java.math.BigInteger;
+//import java.util.Random;
+//
+//public class PrimeGen {
+//	public static MyBigHex generateHexPrime(int bit){
+//		// temp
+//		BigInteger maybePrime = BigInteger.probablePrime(bit, new Random());
+//
+//	}
+//}
