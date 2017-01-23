@@ -144,7 +144,7 @@ public class MyBigHexTest {
 		z = (MyBigHex) x.module(y);
 		assertEquals("96", z.toString());
 		assertEquals("FF96", x.toString());
-		assertEquals("EE85", y.toString());
+		assertEquals("100", y.toString());
 	}
 
 	@Test
@@ -154,7 +154,7 @@ public class MyBigHexTest {
 		z = (MyBigHex) x.module(y);
 		assertEquals("0", z.toString());
 		assertEquals("FF96", x.toString());
-		assertEquals("EE85", y.toString());
+		assertEquals("1", y.toString());
 	}
 
 	@Test
