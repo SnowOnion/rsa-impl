@@ -87,6 +87,46 @@ public class MyBigHexTest {
 	}
 
 	@Test
+	public void minus0() throws Exception {
+		x = new MyBigHex("AC");
+		y = new MyBigHex("1096");
+		z = (MyBigHex) x.minus(y);
+		assertEquals(null, z);
+		assertEquals("AC", x.toString());
+		assertEquals("1096", y.toString());
+	}
+
+	@Test
+	public void minus11() throws Exception {
+		x = new MyBigHex("AC");
+		y = new MyBigHex("1096");
+		z = (MyBigHex) y.minus(x);
+		assertEquals(new MyBigHex("FEA"), z);
+		assertEquals("AC", x.toString());
+		assertEquals("1096", y.toString());
+	}
+
+	@Test
+	public void minus21() throws Exception {
+		x = new MyBigHex("FF96");
+		y = new MyBigHex("FF96");
+		z = (MyBigHex) x.minus(y);
+		assertEquals("0", z.toString());
+		assertEquals("FF96", x.toString());
+		assertEquals("FF96", y.toString());
+	}
+
+	@Test
+	public void minus31() throws Exception {
+		x = new MyBigHex("FF96");
+		y = new MyBigHex("EE85");
+		z = (MyBigHex) x.minus(y);
+		assertEquals("1111", z.toString());
+		assertEquals("FF96", x.toString());
+		assertEquals("EE85", y.toString());
+	}
+
+	@Test
 	public void equals() throws Exception {
 
 	}

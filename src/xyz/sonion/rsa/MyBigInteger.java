@@ -1,7 +1,5 @@
 package xyz.sonion.rsa;
 
-import java.math.BigInteger;
-
 public interface MyBigInteger {
 
 	public MyBigInteger fromInteger(Integer i);
@@ -30,7 +28,7 @@ public interface MyBigInteger {
 	 */
 	public MyBigInteger add(MyBigInteger that);
 
-	public BigInteger minus(MyBigInteger that);
+	public MyBigInteger minus(MyBigInteger that);
 
 	/**
 	 * @param that

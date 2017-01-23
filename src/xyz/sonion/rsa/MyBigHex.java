@@ -1,6 +1,5 @@
 package xyz.sonion.rsa;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 //258
@@ -186,9 +185,36 @@ public class MyBigHex implements MyBigInteger, Comparable<MyBigHex> {
 	}
 
 	@Override
-	public BigInteger minus(MyBigInteger that) {
-return null;
+	public MyBigInteger minus(MyBigInteger that) {
+		int cmp = ((MyBigHex) this).compareTo((MyBigHex) that);
+		if(cmp < 0) {
+			return null; // 不兹瓷负数……
+		} else if(cmp == 0) {
+			return new MyBigHex(0);
+		} else {
+			MyBigInteger shorter = that, longer = this;
+			int lenShort = shorter.getDigits();
+			int lenLong = longer.getDigits();
+			MyBigHex result = new MyBigHex();
+			int dec = 0;
+			for(int i = 0; i < lenShort; i++) {
+				int c = longer.digitAt(i) - shorter.digitAt(i) - dec;
+				dec = c < 0 ? 1 : 0;
+				int r = (c + getBase()) % getBase();
+				result.addDigit(r);
+			}
+			for(int i = lenShort; i < lenLong; i++) {
+				int c = longer.digitAt(i) - dec;
+				dec = c < 0 ? 1 : 0;
+				int r = (c + getBase()) % getBase();
+				result.addDigit(r);
+			}
+			// dec should not >0 now.
+			result.normalize();
+			return result;
+		}
 	}
+
 
 	@Override
 	public boolean equals(Object that) {
