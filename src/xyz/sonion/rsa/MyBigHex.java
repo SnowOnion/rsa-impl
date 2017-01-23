@@ -356,21 +356,26 @@ public class MyBigHex implements MyBigInteger {
 
 	@Override
 	public MyBigInteger module(MyBigInteger m) {
+		int thisLen = this.getDigits();
+		int mLen = this.getDigits();
 		if(this.compareTo((MyBigHex) m) < 0) {
 			return new MyBigHex(this);
 		} else if(this.compareTo((MyBigHex) m) == 0) {
 			return new MyBigHex(0);
-		} else {
-			// not efficient= =? TODO
-
-			MyBigInteger that = this.getDigits() > m.getDigits() ?
-					this.cut(0, m.getDigits() + 1) :
-					this.cut(0, m.getDigits());
+		} else if(thisLen == mLen) {
+			MyBigInteger that = new MyBigHex(this);
 			while(that.compareTo(m) >= 0) {
-				that = that.minus(m); // many (<=BASE) objects...
+				that = that.minus(m); // many (<=BASE) steps, objects...
 			}
 			return that;
+		} else { // this has more digits than m
+			MyBigInteger r = new MyBigHex(0);
+			for(int i = thisLen - 1; i >= 0; i--) { // too redundant... TODO
+				r=r.leftShift(1).add(new MyBigHex(this.digitAt(i))).module(m);
+			}
+			return r;
 		}
+
 	}
 
 //	public MyBigInteger module(Integer m) {
