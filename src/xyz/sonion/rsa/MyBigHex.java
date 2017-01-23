@@ -140,6 +140,7 @@ public class MyBigHex implements MyBigInteger {
 		for(int i = 0; i < digits; i++) {
 			that.hexDigits.add(0, 0);
 		}
+		that.normalize();
 		return that;
 	}
 
@@ -360,10 +361,10 @@ public class MyBigHex implements MyBigInteger {
 	@Override
 	public MyBigInteger module(MyBigInteger m) {
 		int thisLen = this.getDigits();
-		int mLen = this.getDigits();
-		if(this.compareTo((MyBigHex) m) < 0) {
+		int mLen = m.getDigits();
+		if(this.compareTo(m) < 0) {
 			return new MyBigHex(this);
-		} else if(this.compareTo((MyBigHex) m) == 0) {
+		} else if(this.compareTo(m) == 0) {
 			return new MyBigHex(0);
 		} else if(thisLen == mLen) {
 			MyBigInteger that = new MyBigHex(this);
@@ -372,16 +373,16 @@ public class MyBigHex implements MyBigInteger {
 			}
 			return that;
 		} else { // this has more digits than m
-//			MyBigInteger r = new MyBigHex(0);
-//			for(int i = thisLen - 1; i >= 0; i--) { // too redundant... TODO
-//				r = r.leftShift(1).add(new MyBigHex(this.digitAt(i))).module(m);
-//			}
-//			return r;
-			int splitPos = thisLen / 2;
-			MyBigInteger lowMod= this.cut(0,splitPos).module(m);
-			MyBigInteger highMod= this.cut(splitPos,thisLen).module(m);
-			MyBigInteger expMod = new MyBigHex(1).leftShift(splitPos).module(m);
-			return lowMod.add(highMod.multiply(expMod)).module(m);
+			MyBigInteger r = new MyBigHex(0);
+			for(int i = thisLen - 1; i >= 0; i--) { // too redundant... TODO
+				r = r.leftShift(1).add(new MyBigHex(this.digitAt(i))).module(m);
+			}
+			return r;
+//			int splitPos = thisLen / 2;
+//			MyBigInteger lowMod= this.cut(0,splitPos).module(m);
+//			MyBigInteger highMod= this.cut(splitPos,thisLen).module(m);
+//			MyBigInteger expMod = new MyBigHex(1).leftShift(splitPos).module(m);
+//			return lowMod.add(highMod.multiply(expMod)).module(m);
 		}
 	}
 

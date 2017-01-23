@@ -190,7 +190,28 @@ public class MyBigHexTest {
 		x = new MyBigHex(2015312962);
 		y = new MyBigHex(60);
 		z = (MyBigHex) x.module(y);
+		System.out.println(x);
+		System.out.println(y);
+		System.out.println(z);
 		assertEquals(new MyBigHex(22), z);
+	}
+
+	@Test
+	public void module8() throws Exception {
+		x = new MyBigHex(2015312962);
+		y = new MyBigHex(600000);
+		z = (MyBigHex) x.module(y);
+		System.out.println(z.toLong());
+		assertEquals(new MyBigHex(512962), z);
+	}
+
+	@Test
+	public void module9() throws Exception {
+		x = new MyBigHex(2015312962);
+		y = new MyBigHex(600001);
+		z = (MyBigHex) x.module(y);
+		System.out.println(z.toLong());
+		assertEquals(new MyBigHex(509604), z);
 	}
 
 	@Test
