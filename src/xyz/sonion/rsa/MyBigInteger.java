@@ -64,5 +64,7 @@ public interface MyBigInteger extends Comparable<MyBigInteger> {
 
 	boolean isEven();
 
+	boolean isZero();
+
 	MyBigInteger halve();
 }

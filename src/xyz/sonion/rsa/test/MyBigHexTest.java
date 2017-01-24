@@ -480,11 +480,20 @@ public class MyBigHexTest {
 		assertEquals(new MyBigHex(37),w); // "25"
 	}
 
+
 	@Test
 	public void powerMod1() {
 		x = new MyBigHex(2);
 		y = new MyBigHex(2015312962);
 		w= (MyBigHex) x.powerMod(y,new MyBigHex(7),new MyBigHex(11));
+		assertEquals(new MyBigHex(37),w); // "25"
+	}
+
+	@Test
+	public void powerMod2() {
+		x = new MyBigHex(2);
+		y = new MyBigHex(2015312962);
+		w= (MyBigHex) x.powerMod(y,new MyBigHex(77));
 		assertEquals(new MyBigHex(37),w); // "25"
 	}
 

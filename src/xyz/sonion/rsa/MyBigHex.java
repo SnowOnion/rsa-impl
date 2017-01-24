@@ -2,11 +2,6 @@ package xyz.sonion.rsa;
 
 import java.util.ArrayList;
 import java.util.List;
-//258
-//16...2
-//1...0
-//1
-
 
 /**
  * 大的十六进制非负数
@@ -17,6 +12,8 @@ public class MyBigHex implements MyBigInteger {
 	 */
 	private List<Integer> hexDigits;
 	private static int BASE = 16;
+	public static final MyBigHex ZERO=new MyBigHex(0);
+	public static final MyBigHex ONE=new MyBigHex(1);
 
 	public MyBigHex() {
 //		new MyBigHex(0);
@@ -300,8 +297,7 @@ public class MyBigHex implements MyBigInteger {
 
 	@Override
 	public MyBigInteger powerMod(MyBigInteger power, MyBigInteger module) {
-
-		return null; // TODO
+		return powerModInner(this,power,module);
 	}
 
 	/**
@@ -447,6 +443,11 @@ public class MyBigHex implements MyBigInteger {
 	@Override
 	public boolean isEven() {
 		return hexDigits.get(0) % 2 == 0;
+	}
+
+	@Override
+	public boolean isZero() {
+		return hexDigits.size()==1 && hexDigits.get(0)==0;
 	}
 
 	/**
