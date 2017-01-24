@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="fileChooserDemo">
+    <output-path>$PROJECT_DIR$/out/artifacts/fileChooserDemo</output-path>
+    <root id="archive" name="fileChooserDemo.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="rsa-impl" />
+      <element id="library" level="module" name="JUnit4" module-name="rsa-impl" />
+    </root>
+  </artifact>
+</component>
