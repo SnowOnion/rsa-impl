@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="dsaDemo">
-    <output-path>$PROJECT_DIR$/out/artifacts/dsaDemo</output-path>
-    <root id="archive" name="dsaDemo.jar">
+  <artifact type="jar" name="rsaDemo">
+    <output-path>$PROJECT_DIR$/out/artifacts/rsaDemo</output-path>
+    <root id="archive" name="rsaDemo.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>
