@@ -6,6 +6,10 @@ import xyz.sonion.rsa.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by SnowOnion
@@ -76,6 +80,162 @@ public class RsaDemo {
 				MyBigInteger q = new MyBigHex(textAreaDecQ.getText());
 				RsaSecret sec = new RsaSecret(p, q, d);
 				textAreaDecPlaintext.setText(RsaUtil.decrypt(sec, c));
+			}
+		});
+		buttonEncSavePublicKey.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+
+				/**
+				 * write n,e to selected file. One number one line.
+				 */
+
+				String n = textAreaEncN.getText();
+				String e = textAreaEncE.getText();
+
+				JFileChooser fc = new JFileChooser(".");
+				fc.setDialogTitle("Save Puclic Key");
+				int flag = fc.showSaveDialog(null);
+				if(flag == JFileChooser.APPROVE_OPTION) {
+					File f = fc.getSelectedFile();
+//					System.out.println(f.getAbsoluteFile());
+					FileWriter fileWriter = null;
+					PrintWriter printWriter = null;
+					try {
+						fileWriter = new FileWriter(f);
+						printWriter = new PrintWriter(fileWriter);
+						printWriter.println(n);
+						printWriter.println(e);
+						printWriter.flush();
+						printWriter.close();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} finally {
+						printWriter.close();
+						try {
+							fileWriter.close();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}
+
+				}
+			}
+		});
+		buttonEncSavePrivateKey.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/**
+				 * write d,p,q to selected file. One number one line.
+				 */
+
+				String d = textAreaEncD.getText();
+				String p = textAreaEncP.getText();
+				String q = textAreaEncQ.getText();
+
+				JFileChooser fc = new JFileChooser(".");
+				fc.setDialogTitle("Save Secret Key");
+				int flag = fc.showSaveDialog(null);
+				if(flag == JFileChooser.APPROVE_OPTION) {
+					File f = fc.getSelectedFile();
+//					System.out.println(f.getAbsoluteFile());
+					FileWriter fileWriter = null;
+					PrintWriter printWriter = null;
+					try {
+						fileWriter = new FileWriter(f);
+						printWriter = new PrintWriter(fileWriter);
+						printWriter.println(d);
+						printWriter.println(p);
+						printWriter.println(q);
+						printWriter.flush();
+						printWriter.close();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} finally {
+						printWriter.close();
+						try {
+							fileWriter.close();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}
+
+				}
+			}
+		});
+		buttonEncSaveCiphertext.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/**
+				 * write ciphertext to selected file.
+				 */
+
+				String c = textAreaEncCiphertext.getText();
+
+				JFileChooser fc = new JFileChooser(".");
+				fc.setDialogTitle("Save Secret Key");
+				int flag = fc.showSaveDialog(null);
+				if(flag == JFileChooser.APPROVE_OPTION) {
+					File f = fc.getSelectedFile();
+//					System.out.println(f.getAbsoluteFile());
+					FileWriter fileWriter = null;
+					PrintWriter printWriter = null;
+					try {
+						fileWriter = new FileWriter(f);
+						printWriter = new PrintWriter(fileWriter);
+						printWriter.print(c);
+						printWriter.flush();
+						printWriter.close();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} finally {
+						printWriter.close();
+						try {
+							fileWriter.close();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}
+
+				}
+			}
+		});
+		buttonDecSavePlaintext.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/**
+				 * write plaintext to selected file.
+				 */
+
+				String m = textAreaDecPlaintext.getText();
+
+				JFileChooser fc = new JFileChooser(".");
+				fc.setSelectedFile(new File("plaintext.txt"));
+				fc.setDialogTitle("Save Secret Key");
+				int flag = fc.showSaveDialog(null);
+				if(flag == JFileChooser.APPROVE_OPTION) {
+					File f = fc.getSelectedFile();
+//					System.out.println(f.getAbsoluteFile());
+					FileWriter fileWriter = null;
+					PrintWriter printWriter = null;
+					try {
+						fileWriter = new FileWriter(f);
+						printWriter = new PrintWriter(fileWriter);
+						printWriter.print(m);
+						printWriter.flush();
+						printWriter.close();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} finally {
+						printWriter.close();
+						try {
+							fileWriter.close();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}
+
+				}
 			}
 		});
 	}
