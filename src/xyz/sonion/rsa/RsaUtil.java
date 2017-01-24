@@ -28,8 +28,12 @@ public class RsaUtil {
 			e.printStackTrace();
 		}
 
+		for(byte b:byteArray){
+			System.out.println(b);
+		}
+
 		MyBigHex mm = new MyBigHex(byteArray);
-//		System.out.println(mn);
+		System.out.println("Constructed plain MyBigHex: "+mm);
 
 		MyBigInteger c = RsaUtil.encrypt(pub, mm);
 //		System.out.println(c);
@@ -42,14 +46,26 @@ public class RsaUtil {
 	}
 
 	public static String decrypt(RsaSecret sec, String cInHex) {
-		MyBigHex m = (MyBigHex) RsaUtil.decrypt(sec, new MyBigHex(cInHex));
-		System.out.println(m);
-//		System.out.println(mm.toLong());
+
+		MyBigHex cInHexNum = new MyBigHex(cInHex);
+		System.out.println("cInHexNum "+ cInHexNum);
+
+		MyBigHex m = (MyBigHex) RsaUtil.decrypt(sec, cInHexNum);
+
+		System.out.println("Constructed decrypt text: "+m);
 
 		byte[] bytes = m.toByteArray();
+		for(byte b:bytes){
+			System.out.println(b);
+		}
 //		System.out.println(bytes.length);
 //		System.out.println(new String(bytes));
-		return new String(bytes);
+		try {
+			return new String(bytes,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static MyBigInteger decrypt(RsaSecret sec, MyBigInteger c) {

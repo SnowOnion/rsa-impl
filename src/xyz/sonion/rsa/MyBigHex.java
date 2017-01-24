@@ -38,7 +38,7 @@ public class MyBigHex implements MyBigInteger {
 	}
 
 	public byte[] toByteArray() {
-		return new BigInteger(this.toString(),BASE).negate().toByteArray();
+		return new BigInteger(this.toString(),BASE).toByteArray();
 	}
 
 	/**

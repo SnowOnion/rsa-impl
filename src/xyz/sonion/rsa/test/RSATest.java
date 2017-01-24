@@ -197,4 +197,49 @@ public class RSATest {
 		// want profiling...
 		assertEquals("123",RsaUtil.decrypt(sec, c));
 	}
+
+	@Test
+	public void enc112(){
+		String m = "123";
+		MyBigInteger n = new MyBigHex("32F7B9F145FF3570CDE4BF5C57789F6C70DCD3C14EE355166D8A8ABC3B79187D14D53503F97D7736FEAA7742569877A00BC12BA2C4181F4DF317DDF4F15AAD5D");
+		MyBigInteger e = new MyBigHex("10001");
+		RsaPublic pub = new RsaPublic(n, e);
+		assertEquals("BE5C0E449E641EBECD17A97FD33277B2A724D09CAA267CDA031BC1BF0991B1B01A310F806E92295A76C211B68F70A82EFE67248E252ED245395BBDE97E6A156",RsaUtil.encrypt(pub, m));
+	}
+
+	@Test
+	public void dec112(){
+		String c = "BE5C0E449E641EBECD17A97FD33277B2A724D09CAA267CDA031BC1BF0991B1B01A310F806E92295A76C211B68F70A82EFE67248E252ED245395BBDE97E6A156";
+		MyBigInteger d = new MyBigHex("30487831365367C7FE7536477F61F8FD5D0A05DCBA2428663FCDA05263B0FB5D91BB9245F854A2106DE897A873A62A7AB9B67A838053206EE76E06B7C9A5CFCD");
+		MyBigInteger p = new MyBigHex("157B77B78CFC9DE0904BC8DBFCDDD9D88F726D9BD815C2756DD5550B00C7310DB");
+		MyBigInteger q = new MyBigHex("25F5F0325F2682DD157D6B7EC06F278607071E53144D6AEDD20140570A261427");
+		RsaSecret sec = new RsaSecret(p, q, d);
+		System.out.println("secret done");
+		// want profiling...
+		assertEquals("123",RsaUtil.decrypt(sec, c));
+	}
+
+	@Test
+	public void enc113(){
+		String m = "123";
+		MyBigInteger n = new MyBigHex("8F39F88DFA94DCA5");
+		MyBigInteger e = new MyBigHex("10001");
+		RsaPublic pub = new RsaPublic(n, e);
+		assertEquals("215AE41698EB39FB",RsaUtil.encrypt(pub, m));
+	}
+
+	@Test
+	public void dec113(){
+		String c = "215AE41698EB39FB";
+		MyBigInteger d = new MyBigHex("8A777219B0EDD281");
+		MyBigInteger p = new MyBigHex("49B58DC5");
+		MyBigInteger q = new MyBigHex("1F170E161");
+		RsaSecret sec = new RsaSecret(p, q, d);
+
+		MyBigInteger nnn = new MyBigHex("8F39F88DFA94DCA5");
+		assertEquals(nnn,sec.getN());
+
+		// want profiling...
+		assertEquals("123",RsaUtil.decrypt(sec, c));
+	}
 }

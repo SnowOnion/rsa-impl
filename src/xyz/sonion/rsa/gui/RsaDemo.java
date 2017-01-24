@@ -56,7 +56,7 @@ public class RsaDemo {
 		buttonEncGenKey.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Pair<RsaPublic, RsaSecret> rsaPublicRsaSecretPair = RsaUtil.generateKey(1024);
+				Pair<RsaPublic, RsaSecret> rsaPublicRsaSecretPair = RsaUtil.generateKey(64);
 				RsaPublic pub = rsaPublicRsaSecretPair.getKey();
 				RsaSecret sec = rsaPublicRsaSecretPair.getValue();
 
@@ -75,7 +75,7 @@ public class RsaDemo {
 				MyBigInteger p = new MyBigHex(textAreaDecP.getText());
 				MyBigInteger q = new MyBigHex(textAreaDecQ.getText());
 				RsaSecret sec = new RsaSecret(p, q, d);
-				textAreaEncCiphertext.setText(RsaUtil.decrypt(sec, c));
+				textAreaDecPlaintext.setText(RsaUtil.decrypt(sec, c));
 			}
 		});
 	}

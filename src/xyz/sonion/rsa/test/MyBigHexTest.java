@@ -497,4 +497,14 @@ public class MyBigHexTest {
 		assertEquals(new MyBigHex(37),w); // "25"
 	}
 
+
+	@Test
+	public void toByteArray1(){
+		MyBigHex myBigHex = new MyBigHex(123);
+		byte[] bytes = myBigHex.toByteArray();
+		MyBigHex myBigHex1 = new MyBigHex(bytes);
+		System.out.println(bytes.length);
+		assertEquals(myBigHex,myBigHex1);
+	}
+
 }
