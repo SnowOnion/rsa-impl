@@ -1,5 +1,6 @@
 package xyz.sonion.rsa;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,9 @@ public class MyBigHex implements MyBigInteger {
 	 * hexDigits.get(0)为最低位
 	 */
 	private List<Integer> hexDigits;
-	private static int BASE = 16;
-	public static final MyBigHex ZERO=new MyBigHex(0);
-	public static final MyBigHex ONE=new MyBigHex(1);
+	public static int BASE = 16;
+	public static final MyBigHex ZERO = new MyBigHex(0);
+	public static final MyBigHex ONE = new MyBigHex(1);
 
 	public MyBigHex() {
 //		new MyBigHex(0);
@@ -30,6 +31,14 @@ public class MyBigHex implements MyBigInteger {
 
 	public MyBigHex(MyBigHex h) {
 		this.hexDigits = new ArrayList<Integer>(h.hexDigits);
+	}
+
+	public MyBigHex(byte[] bytes) {
+		this.hexDigits=new MyBigHex(new BigInteger(bytes).negate().toString(BASE)).hexDigits;
+	}
+
+	public byte[] toByteArray() {
+		return new BigInteger(this.toString(),BASE).negate().toByteArray();
 	}
 
 	/**
@@ -297,7 +306,7 @@ public class MyBigHex implements MyBigInteger {
 
 	@Override
 	public MyBigInteger powerMod(MyBigInteger power, MyBigInteger module) {
-		return powerModInner(this,power,module);
+		return powerModInner(this, power, module);
 	}
 
 	/**
@@ -447,7 +456,7 @@ public class MyBigHex implements MyBigInteger {
 
 	@Override
 	public boolean isZero() {
-		return hexDigits.size()==1 && hexDigits.get(0)==0;
+		return hexDigits.size() == 1 && hexDigits.get(0) == 0;
 	}
 
 	/**
@@ -467,4 +476,39 @@ public class MyBigHex implements MyBigInteger {
 		that.normalize();
 		return that;
 	}
+
+
+//	public byte[] toByteArray() {
+//		int byteLen = bitLength()/8 + 1;
+//		byte[] byteArray = new byte[byteLen];
+//
+//		for (int i=byteLen-1, bytesCopied=4, nextInt=0, intIndex=0; i >= 0; i--) {
+//			if (bytesCopied == 4) {
+//				nextInt = getInt(intIndex++);
+//				bytesCopied = 1;
+//			} else {
+//				nextInt >>>= 8;
+//				bytesCopied++;
+//			}
+//			byteArray[i] = (byte)nextInt;
+//		}
+//		return byteArray;
+//	}
+//
+//	public BigInteger(byte[] val) {
+//		if (val.length == 0)
+//			throw new NumberFormatException("Zero length BigInteger");
+//
+//		if (val[0] < 0) {
+//			mag = makePositive(val);
+//			signum = -1;
+//		} else {
+//			mag = stripLeadingZeroBytes(val);
+//			signum = (mag.length == 0 ? 0 : 1);
+//		}
+//		if (mag.length >= MAX_MAG_LENGTH) {
+//			checkRange();
+//		}
+//	}
+
 }
