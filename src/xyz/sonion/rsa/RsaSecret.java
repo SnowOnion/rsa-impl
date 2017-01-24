@@ -7,11 +7,11 @@ public class RsaSecret {
 	private MyBigInteger d;
 	private MyBigInteger n;
 
-	RsaSecret(MyBigInteger p, MyBigInteger q, MyBigInteger d) {
+	public RsaSecret(MyBigInteger p, MyBigInteger q, MyBigInteger d) {
 		this.p = p;
 		this.q = q;
 		this.d = d;
-		this.n=p.multiply(q);
+		this.n = p.multiply(q);
 	}
 
 	public MyBigInteger getP() {

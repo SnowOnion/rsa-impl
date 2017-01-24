@@ -67,6 +67,17 @@ public class RsaDemo {
 				textAreaEncQ.setText(sec.getQ().toString());
 			}
 		});
+		buttonDecDecrypt.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String c = textAreaDecCiphertext.getText();
+				MyBigInteger d = new MyBigHex(textAreaDecD.getText());
+				MyBigInteger p = new MyBigHex(textAreaDecP.getText());
+				MyBigInteger q = new MyBigHex(textAreaDecQ.getText());
+				RsaSecret sec = new RsaSecret(p, q, d);
+				textAreaEncCiphertext.setText(RsaUtil.decrypt(sec, c));
+			}
+		});
 	}
 
 	public JTabbedPane getTabbedPane1() {

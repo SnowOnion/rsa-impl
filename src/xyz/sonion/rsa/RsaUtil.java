@@ -38,7 +38,7 @@ public class RsaUtil {
 	}
 
 	public static MyBigInteger encrypt(RsaPublic pub, MyBigInteger m) {
-		return m.powerMod(pub.getE(),pub.getN());
+		return m.powerMod(pub.getE(), pub.getN());
 	}
 
 	public static String decrypt(RsaSecret sec, String cInHex) {
@@ -53,21 +53,19 @@ public class RsaUtil {
 	}
 
 	public static MyBigInteger decrypt(RsaSecret sec, MyBigInteger c) {
-		return c.powerMod(sec.getD(),sec.getN());
+		return c.powerMod(sec.getD(), sec.getP(), sec.getQ());
 	}
 
 	/**
-	 * @Reference
-	 * http://stackoverflow.com/questions/7619058/convert-a-byte-array-to-integer-in-java-and-vise-versa
 	 * @param value
 	 * @return
+	 * @Reference http://stackoverflow.com/questions/7619058/convert-a-byte-array-to-integer-in-java-and-vise-versa
 	 */
 //	public static byte[] toByteArray(int value) {
 //		return  ByteBuffer.allocate(4).putInt(value).array();
 //	}
-
 	public static byte[] toByteArray(long value) {
-		return  ByteBuffer.allocate(8).putLong(value).array();
+		return ByteBuffer.allocate(8).putLong(value).array();
 	}
 
 //	public static byte[] toByteArray(int value) {
