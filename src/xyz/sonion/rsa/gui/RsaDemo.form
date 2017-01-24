@@ -25,7 +25,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="f7a2d" class="javax.swing.JButton" binding="generateKeyButton" default-binding="true">
+              <component id="f7a2d" class="javax.swing.JButton" binding="buttonEncGenKey">
                 <constraints>
                   <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -49,7 +49,7 @@
                   <text value="Plaintext"/>
                 </properties>
               </component>
-              <component id="20fe4" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+              <component id="20fe4" class="javax.swing.JTextArea" binding="textAreaEncPlaintext">
                 <constraints>
                   <grid row="1" column="6" row-span="3" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -73,13 +73,13 @@
                   <text value="e"/>
                 </properties>
               </component>
-              <component id="945e4" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+              <component id="945e4" class="javax.swing.JComboBox" binding="comboBoxEncPubKey">
                 <constraints>
                   <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
               </component>
-              <component id="47348" class="javax.swing.JTextArea" binding="textArea2" default-binding="true">
+              <component id="47348" class="javax.swing.JTextArea" binding="textAreaEncN">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="5" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -87,7 +87,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="9b70" class="javax.swing.JTextArea" binding="textArea3" default-binding="true">
+              <component id="9b70" class="javax.swing.JTextArea" binding="textAreaEncE">
                 <constraints>
                   <grid row="2" column="1" row-span="2" col-span="5" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -97,17 +97,11 @@
               </component>
               <component id="b69a" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="4" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Private Key"/>
                 </properties>
-              </component>
-              <component id="f3ec2" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
-                <constraints>
-                  <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties/>
               </component>
               <component id="53f63" class="javax.swing.JLabel">
                 <constraints>
@@ -133,7 +127,7 @@
                   <text value="q"/>
                 </properties>
               </component>
-              <component id="325b6" class="javax.swing.JTextArea" binding="textArea5" default-binding="true">
+              <component id="325b6" class="javax.swing.JTextArea" binding="textAreaEncd">
                 <constraints>
                   <grid row="5" column="1" row-span="1" col-span="5" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -141,7 +135,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="bc27e" class="javax.swing.JTextArea" binding="textArea6" default-binding="true">
+              <component id="bc27e" class="javax.swing.JTextArea" binding="textAreaEncP">
                 <constraints>
                   <grid row="6" column="1" row-span="1" col-span="5" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -149,7 +143,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="5401f" class="javax.swing.JTextArea" binding="textArea7" default-binding="true">
+              <component id="5401f" class="javax.swing.JTextArea" binding="textAreaEncQ">
                 <constraints>
                   <grid row="7" column="1" row-span="2" col-span="5" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -157,7 +151,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="d1ff" class="javax.swing.JButton" binding="savePublicKeyButton" default-binding="true">
+              <component id="d1ff" class="javax.swing.JButton" binding="buttonEncSavePublicKey">
                 <constraints>
                   <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -165,15 +159,15 @@
                   <text value="Save Public Key"/>
                 </properties>
               </component>
-              <component id="682cd" class="javax.swing.JButton" binding="savePrivateKeyButton" default-binding="true">
+              <component id="682cd" class="javax.swing.JButton" binding="buttonEncSavePrivateKey">
                 <constraints>
-                  <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="4" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Save Private Key"/>
                 </properties>
               </component>
-              <component id="7d85d" class="javax.swing.JButton" binding="loadPlaintextButton" default-binding="true">
+              <component id="7d85d" class="javax.swing.JButton" binding="buttonEncLoadPlaintext">
                 <constraints>
                   <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="1" use-parent-layout="false"/>
                 </constraints>
@@ -189,7 +183,7 @@
                   <text value="Ciphertext"/>
                 </properties>
               </component>
-              <component id="531ee" class="javax.swing.JButton" binding="encryptButton" default-binding="true">
+              <component id="531ee" class="javax.swing.JButton" binding="buttonEncEncrypt">
                 <constraints>
                   <grid row="4" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -197,7 +191,7 @@
                   <text value="Encrypt!"/>
                 </properties>
               </component>
-              <component id="fe688" class="javax.swing.JButton" binding="saveCiphertextButton" default-binding="true">
+              <component id="fe688" class="javax.swing.JButton" binding="buttonEncSaveCiphertext">
                 <constraints>
                   <grid row="4" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -205,7 +199,7 @@
                   <text value="Save Ciphertext"/>
                 </properties>
               </component>
-              <component id="9f4a3" class="javax.swing.JTextArea" binding="textArea4" default-binding="true">
+              <component id="9f4a3" class="javax.swing.JTextArea" binding="textAreaEncCiphertext">
                 <constraints>
                   <grid row="5" column="6" row-span="4" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -231,7 +225,7 @@
                   <text value="Private Key"/>
                 </properties>
               </component>
-              <component id="ff080" class="javax.swing.JTextArea" binding="textArea8" default-binding="true">
+              <component id="ff080" class="javax.swing.JTextArea" binding="textAreaDecD">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="5" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -239,7 +233,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="9450" class="javax.swing.JTextArea" binding="textArea9" default-binding="true">
+              <component id="9450" class="javax.swing.JTextArea" binding="textAreaDecQ">
                 <constraints>
                   <grid row="3" column="1" row-span="1" col-span="5" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -247,7 +241,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="fb631" class="javax.swing.JButton" binding="loadPrivateKeyButton" default-binding="true">
+              <component id="fb631" class="javax.swing.JButton" binding="buttonDecLoadPrivateKey">
                 <constraints>
                   <grid row="0" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -263,7 +257,7 @@
                   <text value="Ciphertext"/>
                 </properties>
               </component>
-              <component id="39fbe" class="javax.swing.JButton" binding="loadCiphertextButton" default-binding="true">
+              <component id="39fbe" class="javax.swing.JButton" binding="buttonDecLoadCiphertext">
                 <constraints>
                   <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -271,7 +265,7 @@
                   <text value="Load Ciphertext"/>
                 </properties>
               </component>
-              <component id="c14d3" class="javax.swing.JTextArea" binding="textArea10" default-binding="true">
+              <component id="c14d3" class="javax.swing.JTextArea" binding="textAreaDecCiphertext">
                 <constraints>
                   <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -287,7 +281,7 @@
                   <text value="Plaintext"/>
                 </properties>
               </component>
-              <component id="745dc" class="javax.swing.JButton" binding="decryptButton" default-binding="true">
+              <component id="745dc" class="javax.swing.JButton" binding="buttonDecDecrypt">
                 <constraints>
                   <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -295,7 +289,7 @@
                   <text value="Decrypt!"/>
                 </properties>
               </component>
-              <component id="77f00" class="javax.swing.JButton" binding="savePlaintextButton" default-binding="true">
+              <component id="77f00" class="javax.swing.JButton" binding="buttonDecSavePlaintext">
                 <constraints>
                   <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -303,7 +297,7 @@
                   <text value="Save Plaintext"/>
                 </properties>
               </component>
-              <component id="ddfbc" class="javax.swing.JTextArea" binding="textArea11" default-binding="true">
+              <component id="ddfbc" class="javax.swing.JTextArea" binding="textAreaDecPlaintext">
                 <constraints>
                   <grid row="5" column="3" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
@@ -311,7 +305,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="fb118" class="javax.swing.JTextArea" binding="textArea12" default-binding="true">
+              <component id="fb118" class="javax.swing.JTextArea" binding="textAreaDecP">
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="5" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
