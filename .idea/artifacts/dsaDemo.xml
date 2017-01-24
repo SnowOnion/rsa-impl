@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="fileChooserDemo">
-    <output-path>$PROJECT_DIR$/out/artifacts/fileChooserDemo</output-path>
-    <root id="archive" name="fileChooserDemo.jar">
+  <artifact type="jar" name="dsaDemo">
+    <output-path>$PROJECT_DIR$/out/artifacts/dsaDemo</output-path>
+    <root id="archive" name="dsaDemo.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>

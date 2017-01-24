@@ -41,9 +41,18 @@ public class RsaDemo {
 	private JButton buttonDecSavePlaintext;
 	private JTextArea textAreaDecPlaintext;
 	private JTextArea textAreaDecP;
+	private JLabel labelEncTimeToGen;
 
 
 	public RsaDemo() {
+
+//		String[] rsas={"256","512","768","1024","2048"};
+//		for(String rsa:rsas){
+//			comboBoxEncPubKey.addItem(rsa);
+//		}
+//		comboBoxEncPubKey=new JComboBox(rsas);
+//		comboBoxEncPubKey.setSelectedIndex(3);
+
 		buttonEncEncrypt.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
@@ -57,7 +66,13 @@ public class RsaDemo {
 		buttonEncGenKey.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Pair<RsaPublic, RsaPrivate> rsaPublicRsaPrivatePair = RsaUtil.generateKey(64);
+				int len = Integer.parseInt(comboBoxEncPubKey.getSelectedItem().toString());
+				System.out.println("RSA-" + len);
+				long before = System.currentTimeMillis();
+				Pair<RsaPublic, RsaPrivate> rsaPublicRsaPrivatePair = RsaUtil.generateKey(len);
+				long after = System.currentTimeMillis();
+				labelEncTimeToGen.setText(((after - before)) + " ms");
+
 				RsaPublic pub = rsaPublicRsaPrivatePair.getKey();
 				RsaPrivate sec = rsaPublicRsaPrivatePair.getValue();
 
@@ -254,11 +269,11 @@ public class RsaDemo {
 //					System.out.println(f.getAbsoluteFile());
 					FileReader fr = null;
 
-					char[] buf = new char[10000];
+					char[] buf = new char[100010];
 					try {
 						fr = new FileReader(f);
 
-						fr.read(buf, 0, 1024);
+						fr.read(buf, 0, 100000);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					} finally {
@@ -269,7 +284,7 @@ public class RsaDemo {
 							e1.printStackTrace();
 						}
 					}
-					textAreaEncPlaintext.setText(String.valueOf(buf));
+					textAreaEncPlaintext.setText(String.valueOf(buf).trim());
 				}
 			}
 		});
@@ -286,10 +301,10 @@ public class RsaDemo {
 				if(flag == JFileChooser.APPROVE_OPTION) {
 					File f = fc.getSelectedFile();
 					FileReader fr = null;
-					char[] buf = new char[110];
+					char[] buf = new char[100010];
 					try {
 						fr = new FileReader(f);
-						fr.read(buf, 0, 100);
+						fr.read(buf, 0, 100000);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					} finally {
@@ -299,7 +314,7 @@ public class RsaDemo {
 							e1.printStackTrace();
 						}
 					}
-					String c=String.valueOf(buf).trim();
+					String c = String.valueOf(buf).trim();
 					textAreaDecCiphertext.setText(c);
 				}
 			}
