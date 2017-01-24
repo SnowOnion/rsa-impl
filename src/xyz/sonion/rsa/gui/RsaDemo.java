@@ -286,10 +286,10 @@ public class RsaDemo {
 				if(flag == JFileChooser.APPROVE_OPTION) {
 					File f = fc.getSelectedFile();
 					FileReader fr = null;
-					char[] buf = new char[100010];
+					char[] buf = new char[110];
 					try {
 						fr = new FileReader(f);
-						fr.read(buf, 0, 100000);
+						fr.read(buf, 0, 100);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					} finally {
@@ -299,7 +299,8 @@ public class RsaDemo {
 							e1.printStackTrace();
 						}
 					}
-					textAreaDecCiphertext.setText(String.valueOf(buf));
+					String c=String.valueOf(buf).trim();
+					textAreaDecCiphertext.setText(c);
 				}
 			}
 		});
