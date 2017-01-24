@@ -4,7 +4,7 @@ public class RsaPublic {
 	private MyBigInteger n;
 	private MyBigInteger e;
 
-	RsaPublic(MyBigInteger n, MyBigInteger e) {
+	public RsaPublic(MyBigInteger n, MyBigInteger e) {
 		this.n = n;
 		this.e = e;
 	}

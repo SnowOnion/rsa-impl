@@ -1,6 +1,11 @@
 package xyz.sonion.rsa.gui;
 
+import javafx.util.Pair;
+import xyz.sonion.rsa.*;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by SnowOnion
@@ -22,7 +27,7 @@ public class RsaDemo {
 	private JButton buttonEncEncrypt;
 	private JButton buttonEncSaveCiphertext;
 	private JTextArea textAreaEncCiphertext;
-	private JTextArea textAreaEncd;
+	private JTextArea textAreaEncD;
 	private JTextArea textAreaEncP;
 	private JTextArea textAreaEncQ;
 	private JButton buttonEncSavePrivateKey;
@@ -36,6 +41,33 @@ public class RsaDemo {
 	private JTextArea textAreaDecPlaintext;
 	private JTextArea textAreaDecP;
 
+
+	public RsaDemo() {
+		buttonEncEncrypt.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				String m = textAreaEncPlaintext.getText();
+				MyBigInteger n = new MyBigHex(textAreaEncN.getText());
+				MyBigInteger e = new MyBigHex(textAreaEncE.getText());
+				RsaPublic pub = new RsaPublic(n, e);
+				textAreaEncCiphertext.setText(RsaUtil.encrypt(pub, m));
+			}
+		});
+		buttonEncGenKey.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Pair<RsaPublic, RsaSecret> rsaPublicRsaSecretPair = RsaUtil.generateKey(1024);
+				RsaPublic pub = rsaPublicRsaSecretPair.getKey();
+				RsaSecret sec = rsaPublicRsaSecretPair.getValue();
+
+				textAreaEncN.setText(pub.getN().toString());
+				textAreaEncE.setText(pub.getE().toString());
+				textAreaEncD.setText(sec.getD().toString());
+				textAreaEncP.setText(sec.getP().toString());
+				textAreaEncQ.setText(sec.getQ().toString());
+			}
+		});
+	}
 
 	public JTabbedPane getTabbedPane1() {
 		return tabbedPane1;
@@ -51,5 +83,97 @@ public class RsaDemo {
 
 	public JTextField getTextField2() {
 		return textField2;
+	}
+
+	public JButton getButtonEncGenKey() {
+		return buttonEncGenKey;
+	}
+
+	public JTextArea getTextAreaEncPlaintext() {
+		return textAreaEncPlaintext;
+	}
+
+	public JButton getButtonEncSavePublicKey() {
+		return buttonEncSavePublicKey;
+	}
+
+	public JComboBox getComboBoxEncPubKey() {
+		return comboBoxEncPubKey;
+	}
+
+	public JTextArea getTextAreaEncN() {
+		return textAreaEncN;
+	}
+
+	public JTextArea getTextAreaEncE() {
+		return textAreaEncE;
+	}
+
+	public JButton getButtonEncLoadPlaintext() {
+		return buttonEncLoadPlaintext;
+	}
+
+	public JButton getButtonEncEncrypt() {
+		return buttonEncEncrypt;
+	}
+
+	public JButton getButtonEncSaveCiphertext() {
+		return buttonEncSaveCiphertext;
+	}
+
+	public JTextArea getTextAreaEncCiphertext() {
+		return textAreaEncCiphertext;
+	}
+
+	public JTextArea getTextAreaEncD() {
+		return textAreaEncD;
+	}
+
+	public JTextArea getTextAreaEncP() {
+		return textAreaEncP;
+	}
+
+	public JTextArea getTextAreaEncQ() {
+		return textAreaEncQ;
+	}
+
+	public JButton getButtonEncSavePrivateKey() {
+		return buttonEncSavePrivateKey;
+	}
+
+	public JTextArea getTextAreaDecD() {
+		return textAreaDecD;
+	}
+
+	public JTextArea getTextAreaDecQ() {
+		return textAreaDecQ;
+	}
+
+	public JButton getButtonDecLoadPrivateKey() {
+		return buttonDecLoadPrivateKey;
+	}
+
+	public JButton getButtonDecLoadCiphertext() {
+		return buttonDecLoadCiphertext;
+	}
+
+	public JTextArea getTextAreaDecCiphertext() {
+		return textAreaDecCiphertext;
+	}
+
+	public JButton getButtonDecDecrypt() {
+		return buttonDecDecrypt;
+	}
+
+	public JButton getButtonDecSavePlaintext() {
+		return buttonDecSavePlaintext;
+	}
+
+	public JTextArea getTextAreaDecPlaintext() {
+		return textAreaDecPlaintext;
+	}
+
+	public JTextArea getTextAreaDecP() {
+		return textAreaDecP;
 	}
 }
