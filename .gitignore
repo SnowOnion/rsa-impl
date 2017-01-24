@@ -56,3 +56,10 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+
+###
+cipherText*.txt
+plainText*.txt
+publicKey*.txt
+privateKey*.txt

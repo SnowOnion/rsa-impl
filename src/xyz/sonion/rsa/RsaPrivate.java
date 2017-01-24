@@ -1,13 +1,13 @@
 package xyz.sonion.rsa;
 
 
-public class RsaSecret {
+public class RsaPrivate {
 	private MyBigInteger p;
 	private MyBigInteger q;
 	private MyBigInteger d;
 	private MyBigInteger n;
 
-	public RsaSecret(MyBigInteger p, MyBigInteger q, MyBigInteger d) {
+	public RsaPrivate(MyBigInteger p, MyBigInteger q, MyBigInteger d) {
 		this.p = p;
 		this.q = q;
 		this.d = d;

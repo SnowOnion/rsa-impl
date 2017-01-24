@@ -6,10 +6,7 @@ import xyz.sonion.rsa.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 /**
  * Created by SnowOnion
@@ -60,9 +57,9 @@ public class RsaDemo {
 		buttonEncGenKey.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Pair<RsaPublic, RsaSecret> rsaPublicRsaSecretPair = RsaUtil.generateKey(64);
-				RsaPublic pub = rsaPublicRsaSecretPair.getKey();
-				RsaSecret sec = rsaPublicRsaSecretPair.getValue();
+				Pair<RsaPublic, RsaPrivate> rsaPublicRsaPrivatePair = RsaUtil.generateKey(64);
+				RsaPublic pub = rsaPublicRsaPrivatePair.getKey();
+				RsaPrivate sec = rsaPublicRsaPrivatePair.getValue();
 
 				textAreaEncN.setText(pub.getN().toString());
 				textAreaEncE.setText(pub.getE().toString());
@@ -78,7 +75,7 @@ public class RsaDemo {
 				MyBigInteger d = new MyBigHex(textAreaDecD.getText());
 				MyBigInteger p = new MyBigHex(textAreaDecP.getText());
 				MyBigInteger q = new MyBigHex(textAreaDecQ.getText());
-				RsaSecret sec = new RsaSecret(p, q, d);
+				RsaPrivate sec = new RsaPrivate(p, q, d);
 				textAreaDecPlaintext.setText(RsaUtil.decrypt(sec, c));
 			}
 		});
@@ -94,6 +91,7 @@ public class RsaDemo {
 				String e = textAreaEncE.getText();
 
 				JFileChooser fc = new JFileChooser(".");
+				fc.setSelectedFile(new File("publicKey-" + System.currentTimeMillis() + ".txt"));
 				fc.setDialogTitle("Save Puclic Key");
 				int flag = fc.showSaveDialog(null);
 				if(flag == JFileChooser.APPROVE_OPTION) {
@@ -134,7 +132,8 @@ public class RsaDemo {
 				String q = textAreaEncQ.getText();
 
 				JFileChooser fc = new JFileChooser(".");
-				fc.setDialogTitle("Save Secret Key");
+				fc.setSelectedFile(new File("privateKey-" + System.currentTimeMillis() + ".txt"));
+				fc.setDialogTitle("Save Private Key");
 				int flag = fc.showSaveDialog(null);
 				if(flag == JFileChooser.APPROVE_OPTION) {
 					File f = fc.getSelectedFile();
@@ -173,7 +172,8 @@ public class RsaDemo {
 				String c = textAreaEncCiphertext.getText();
 
 				JFileChooser fc = new JFileChooser(".");
-				fc.setDialogTitle("Save Secret Key");
+				fc.setSelectedFile(new File("cipherText-" + System.currentTimeMillis() + ".txt"));
+				fc.setDialogTitle("Save Cipher Text");
 				int flag = fc.showSaveDialog(null);
 				if(flag == JFileChooser.APPROVE_OPTION) {
 					File f = fc.getSelectedFile();
@@ -210,8 +210,8 @@ public class RsaDemo {
 				String m = textAreaDecPlaintext.getText();
 
 				JFileChooser fc = new JFileChooser(".");
-				fc.setSelectedFile(new File("plaintext.txt"));
-				fc.setDialogTitle("Save Secret Key");
+				fc.setSelectedFile(new File("plainText-" + System.currentTimeMillis() + ".txt"));
+				fc.setDialogTitle("Save Private Key");
 				int flag = fc.showSaveDialog(null);
 				if(flag == JFileChooser.APPROVE_OPTION) {
 					File f = fc.getSelectedFile();
@@ -238,6 +238,107 @@ public class RsaDemo {
 				}
 			}
 		});
+		buttonEncLoadPlaintext.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/**
+				 * read plain text from selected file.
+				 */
+
+				JFileChooser fc = new JFileChooser(".");
+				fc.setDialogTitle("Load Plain Text");
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int flag = fc.showDialog(new JLabel(), "选择");
+				if(flag == JFileChooser.APPROVE_OPTION) {
+					File f = fc.getSelectedFile();
+//					System.out.println(f.getAbsoluteFile());
+					FileReader fr = null;
+
+					char[] buf = new char[10000];
+					try {
+						fr = new FileReader(f);
+
+						fr.read(buf, 0, 1024);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} finally {
+						try {
+
+							fr.close();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}
+					textAreaEncPlaintext.setText(String.valueOf(buf));
+				}
+			}
+		});
+		buttonDecLoadCiphertext.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/**
+				 * read cipher text from selected file.
+				 */
+				JFileChooser fc = new JFileChooser(".");
+				fc.setDialogTitle("Load Cipher Text");
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int flag = fc.showDialog(new JLabel(), "选择");
+				if(flag == JFileChooser.APPROVE_OPTION) {
+					File f = fc.getSelectedFile();
+					FileReader fr = null;
+					char[] buf = new char[100010];
+					try {
+						fr = new FileReader(f);
+						fr.read(buf, 0, 100000);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} finally {
+						try {
+							fr.close();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}
+					textAreaDecCiphertext.setText(String.valueOf(buf));
+				}
+			}
+		});
+		buttonDecLoadPrivateKey.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/**
+				 * load Private key d,p,q from selected file. One each line.
+				 */
+				JFileChooser fc = new JFileChooser(".");
+				fc.setDialogTitle("Load Private Key");
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int flag = fc.showDialog(new JLabel(), "选择");
+				if(flag == JFileChooser.APPROVE_OPTION) {
+					File f = fc.getSelectedFile();
+					FileReader fr = null;
+					BufferedReader br = null;
+					try {
+						fr = new FileReader(f);
+						br = new BufferedReader(fr);
+						textAreaDecD.setText(br.readLine());
+						textAreaDecP.setText(br.readLine());
+						textAreaDecQ.setText(br.readLine());
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} finally {
+						try {
+							br.close();
+							fr.close();
+
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}
+
+				}
+			}
+		});
+
 	}
 
 	public JTabbedPane getTabbedPane1() {

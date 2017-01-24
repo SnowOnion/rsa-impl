@@ -17,7 +17,7 @@ public class RSATest {
 
 	@Test (timeout = 1000)
 	public void generateKey2() throws Exception {
-		Pair<RsaPublic, RsaSecret> rsaPublicRsaSecretPair = RsaUtil.generateKey(1024);
+		Pair<RsaPublic, RsaPrivate> rsaPublicRsaSecretPair = RsaUtil.generateKey(1024);
 		System.out.println(rsaPublicRsaSecretPair.getKey().getN());
 		System.out.println(rsaPublicRsaSecretPair.getKey().getE());
 		System.out.println(rsaPublicRsaSecretPair.getValue().getD());
@@ -30,9 +30,9 @@ public class RSATest {
 
 	@Test
 	public void endec1() throws Exception {
-		Pair<RsaPublic, RsaSecret> rsaPublicRsaSecretPair = RsaUtil.generateKey(768);
+		Pair<RsaPublic, RsaPrivate> rsaPublicRsaSecretPair = RsaUtil.generateKey(768);
 		RsaPublic pub = rsaPublicRsaSecretPair.getKey();
-		RsaSecret sec = rsaPublicRsaSecretPair.getValue();
+		RsaPrivate sec = rsaPublicRsaSecretPair.getValue();
 
 		MyBigHex m = new MyBigHex(2015311962);
 		System.out.println(m);
@@ -50,9 +50,9 @@ public class RSATest {
 
 	@Test
 	public void endec2() throws Exception {
-		Pair<RsaPublic, RsaSecret> rsaPublicRsaSecretPair = RsaUtil.generateKey(1024);
+		Pair<RsaPublic, RsaPrivate> rsaPublicRsaSecretPair = RsaUtil.generateKey(1024);
 		RsaPublic pub = rsaPublicRsaSecretPair.getKey();
-		RsaSecret sec = rsaPublicRsaSecretPair.getValue();
+		RsaPrivate sec = rsaPublicRsaSecretPair.getValue();
 
 		MyBigHex m = new MyBigHex(2015311962);
 		System.out.println(m);
@@ -84,9 +84,9 @@ public class RSATest {
 		BigInteger bigInteger = new BigInteger(byteArray);
 		System.out.println(bigInteger);
 
-		Pair<RsaPublic, RsaSecret> rsaPublicRsaSecretPair = RsaUtil.generateKey(1024);
+		Pair<RsaPublic, RsaPrivate> rsaPublicRsaSecretPair = RsaUtil.generateKey(1024);
 		RsaPublic pub = rsaPublicRsaSecretPair.getKey();
-		RsaSecret sec = rsaPublicRsaSecretPair.getValue();
+		RsaPrivate sec = rsaPublicRsaSecretPair.getValue();
 
 		MyBigHex m = new MyBigHex(bigInteger.negate().toString(MyBigHex.BASE));
 		System.out.println(m);
@@ -112,9 +112,9 @@ public class RSATest {
 		String source = "文艺复兴以降";
 		byte[] byteArray = source.getBytes("UTF-8");
 
-		Pair<RsaPublic, RsaSecret> rsaPublicRsaSecretPair = RsaUtil.generateKey(512);
+		Pair<RsaPublic, RsaPrivate> rsaPublicRsaSecretPair = RsaUtil.generateKey(512);
 		RsaPublic pub = rsaPublicRsaSecretPair.getKey();
-		RsaSecret sec = rsaPublicRsaSecretPair.getValue();
+		RsaPrivate sec = rsaPublicRsaSecretPair.getValue();
 
 		MyBigHex m = new MyBigHex(byteArray);
 		System.out.println(m);
@@ -138,9 +138,9 @@ public class RSATest {
 	public void endes4() throws Exception {
 		String source = "文艺复兴以降";
 
-		Pair<RsaPublic, RsaSecret> rsaPublicRsaSecretPair = RsaUtil.generateKey(512);
+		Pair<RsaPublic, RsaPrivate> rsaPublicRsaSecretPair = RsaUtil.generateKey(512);
 		RsaPublic pub = rsaPublicRsaSecretPair.getKey();
-		RsaSecret sec = rsaPublicRsaSecretPair.getValue();
+		RsaPrivate sec = rsaPublicRsaSecretPair.getValue();
 
 		String c = RsaUtil.encrypt(pub, source);
 		System.out.println(c);
@@ -192,7 +192,7 @@ public class RSATest {
 		MyBigInteger d = new MyBigHex("95F3B838E98A98D9EFFEB8AB424AA1FF5A5463E37D597BBDF82A7615D5DC31A6DF0C3A005D7ECC5E4155E3AB145B29281D25BE4C8769CBE8E2788D95C277851E02067CBE1237B4F9DC1075C1AD5699E8A5CB0DB4E69405A5A443FC9028D75D47B6BFC68CEDD0BE8977B820700697485D3CE3C7235B6BCE23080A9D94F3693C01");
 		MyBigInteger p = new MyBigHex("F5F88FE4BF08166A6D95D6BCF6B33D3E2B0B4AA17CF8E9BE404BF449264A6C1DE3BF1C0EF547FCD4E32DC90CD0D91DC0C018B6E3D5AA8216CD7C25D9F03EA8B9");
 		MyBigInteger q = new MyBigHex("1B2A5834382BF2D93DF8F7EC68D7D865AE8C250FAA30C367BE6846AEE0B6235E9E7E091FE6358D66F2155AD84A393E831C5924EB618C92B6E271CF3AFC8DCB161");
-		RsaSecret sec = new RsaSecret(p, q, d);
+		RsaPrivate sec = new RsaPrivate(p, q, d);
 		System.out.println("secret done");
 		// want profiling...
 		assertEquals("123",RsaUtil.decrypt(sec, c));
@@ -213,7 +213,7 @@ public class RSATest {
 		MyBigInteger d = new MyBigHex("30487831365367C7FE7536477F61F8FD5D0A05DCBA2428663FCDA05263B0FB5D91BB9245F854A2106DE897A873A62A7AB9B67A838053206EE76E06B7C9A5CFCD");
 		MyBigInteger p = new MyBigHex("157B77B78CFC9DE0904BC8DBFCDDD9D88F726D9BD815C2756DD5550B00C7310DB");
 		MyBigInteger q = new MyBigHex("25F5F0325F2682DD157D6B7EC06F278607071E53144D6AEDD20140570A261427");
-		RsaSecret sec = new RsaSecret(p, q, d);
+		RsaPrivate sec = new RsaPrivate(p, q, d);
 		System.out.println("secret done");
 		// want profiling...
 		assertEquals("123",RsaUtil.decrypt(sec, c));
@@ -234,12 +234,27 @@ public class RSATest {
 		MyBigInteger d = new MyBigHex("8A777219B0EDD281");
 		MyBigInteger p = new MyBigHex("49B58DC5");
 		MyBigInteger q = new MyBigHex("1F170E161");
-		RsaSecret sec = new RsaSecret(p, q, d);
+		RsaPrivate sec = new RsaPrivate(p, q, d);
 
 		MyBigInteger nnn = new MyBigHex("8F39F88DFA94DCA5");
 		assertEquals(nnn,sec.getN());
 
 		// want profiling...
 		assertEquals("123",RsaUtil.decrypt(sec, c));
+	}
+
+	@Test
+	public void dec114(){
+		String c = "E6850FE32AEF127A";
+		MyBigInteger d = new MyBigHex("B76C3119AE2B0191");
+		MyBigInteger p = new MyBigHex("8D66F2E7");
+		MyBigInteger q = new MyBigHex("1BB42D81D");
+		RsaPrivate sec = new RsaPrivate(p, q, d);
+
+//		MyBigInteger nnn = new MyBigHex("8F39F88DFA94DCA5");
+//		assertEquals(nnn,sec.getN());
+
+		// want profiling...
+		assertEquals("19992019",RsaUtil.decrypt(sec, c));
 	}
 }

@@ -9,7 +9,7 @@ public class RsaUtil {
 
 	public static final MyBigInteger E = new MyBigHex("10001"); // 2^16 + 1
 
-	public static Pair<RsaPublic, RsaSecret> generateKey(int nBitLength) {
+	public static Pair<RsaPublic, RsaPrivate> generateKey(int nBitLength) {
 		MyBigInteger p = MyMathUtil.generateHexPrime(nBitLength / 2 + 1);
 		MyBigInteger q = MyMathUtil.generateHexPrime(nBitLength / 2 + 1);
 		MyBigInteger e = E;
@@ -17,7 +17,7 @@ public class RsaUtil {
 		MyBigInteger r = p.minus(MyBigHex.ONE).multiply(q.minus(MyBigHex.ONE));
 		MyBigInteger d = MyMathUtil.modInverse(e, r);
 
-		return new Pair<RsaPublic, RsaSecret>(new RsaPublic(n, e), new RsaSecret(p, q, d));
+		return new Pair<RsaPublic, RsaPrivate>(new RsaPublic(n, e), new RsaPrivate(p, q, d));
 	}
 
 	public static String encrypt(RsaPublic pub, String m) {
@@ -45,12 +45,12 @@ public class RsaUtil {
 		return m.powerMod(pub.getE(), pub.getN());
 	}
 
-	public static String decrypt(RsaSecret sec, String cInHex) {
+	public static String decrypt(RsaPrivate pri, String cInHex) {
 
 		MyBigHex cInHexNum = new MyBigHex(cInHex);
 		System.out.println("cInHexNum "+ cInHexNum);
 
-		MyBigHex m = (MyBigHex) RsaUtil.decrypt(sec, cInHexNum);
+		MyBigHex m = (MyBigHex) RsaUtil.decrypt(pri, cInHexNum);
 
 		System.out.println("Constructed decrypt text: "+m);
 
@@ -68,8 +68,8 @@ public class RsaUtil {
 		return null;
 	}
 
-	public static MyBigInteger decrypt(RsaSecret sec, MyBigInteger c) {
-		return c.powerMod(sec.getD(), sec.getP(), sec.getQ());
+	public static MyBigInteger decrypt(RsaPrivate pri, MyBigInteger c) {
+		return c.powerMod(pri.getD(), pri.getP(), pri.getQ());
 	}
 
 	/**
